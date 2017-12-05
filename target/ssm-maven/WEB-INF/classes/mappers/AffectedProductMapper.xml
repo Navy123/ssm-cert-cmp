@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.dao.AffectedProductMapper">
+  <resultMap id="BaseResultMap" type="com.bupt.entity.AffectedProduct">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="base_id" jdbcType="BIGINT" property="baseId" />
+    <result column="cwe_id" jdbcType="VARCHAR" property="cweId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bupt.entity.AffectedProductWithBLOBs">
+    <result column="affected_os" jdbcType="LONGVARCHAR" property="affectedOs" />
+    <result column="affected_soft" jdbcType="LONGVARCHAR" property="affectedSoft" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, base_id, cwe_id, gmt_create, gmt_modified
+  </sql>
+  <sql id="Blob_Column_List">
+    affected_os, affected_soft
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from affected_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByBaseInfoID" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from affected_product
+    where base_id = #{baseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from affected_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByBaseInfoID" parameterType="java.lang.Long">
+    delete from affected_product
+    where base_id = #{baseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bupt.entity.AffectedProductWithBLOBs">
+    insert into affected_product (id, base_id, cwe_id, 
+      gmt_create, gmt_modified, affected_os, 
+      affected_soft)
+    values (#{id,jdbcType=BIGINT}, #{baseId,jdbcType=BIGINT}, #{cweId,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{affectedOs,jdbcType=LONGVARCHAR}, 
+      #{affectedSoft,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bupt.entity.AffectedProductWithBLOBs">
+    insert into affected_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="baseId != null">
+        base_id,
+      </if>
+      <if test="cweId != null">
+        cwe_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="affectedOs != null">
+        affected_os,
+      </if>
+      <if test="affectedSoft != null">
+        affected_soft,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="baseId != null">
+        #{baseId,jdbcType=BIGINT},
+      </if>
+      <if test="cweId != null">
+        #{cweId,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="affectedOs != null">
+        #{affectedOs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="affectedSoft != null">
+        #{affectedSoft,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bupt.entity.AffectedProductWithBLOBs">
+    update affected_product
+    <set>
+      <if test="baseId != null">
+        base_id = #{baseId,jdbcType=BIGINT},
+      </if>
+      <if test="cweId != null">
+        cwe_id = #{cweId,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="affectedOs != null">
+        affected_os = #{affectedOs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="affectedSoft != null">
+        affected_soft = #{affectedSoft,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bupt.entity.AffectedProductWithBLOBs">
+    update affected_product
+    set base_id = #{baseId,jdbcType=BIGINT},
+      cwe_id = #{cweId,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      affected_os = #{affectedOs,jdbcType=LONGVARCHAR},
+      affected_soft = #{affectedSoft,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bupt.entity.AffectedProduct">
+    update affected_product
+    set base_id = #{baseId,jdbcType=BIGINT},
+      cwe_id = #{cweId,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

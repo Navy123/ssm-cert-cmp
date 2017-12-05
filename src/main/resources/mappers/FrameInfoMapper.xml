@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.dao.FrameInfoMapper">
+  <resultMap id="BaseResultMap" type="com.bupt.entity.FrameInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="base_id" jdbcType="BIGINT" property="baseId" />
+    <result column="cve_id" jdbcType="VARCHAR" property="cveId" />
+    <result column="frame_name" jdbcType="VARCHAR" property="frameName" />
+    <result column="frame_type" jdbcType="VARCHAR" property="frameType" />
+    <result column="frame_language" jdbcType="VARCHAR" property="frameLanguage" />
+    <result column="influence" jdbcType="VARCHAR" property="influence" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, base_id, cve_id, frame_name, frame_type, frame_language, influence
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from frame_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByBaseInfoID" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from frame_info
+    where base_id = #{baseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from frame_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByBaseInfoID" parameterType="java.lang.Long">
+    delete from frame_info
+    where base_id = #{baseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bupt.entity.FrameInfo">
+    insert into frame_info (id, base_id, cve_id, 
+      frame_name, frame_type, frame_language, 
+      influence)
+    values (#{id,jdbcType=BIGINT}, #{baseId,jdbcType=BIGINT}, #{cveId,jdbcType=VARCHAR}, 
+      #{frameName,jdbcType=VARCHAR}, #{frameType,jdbcType=VARCHAR}, #{frameLanguage,jdbcType=VARCHAR}, 
+      #{influence,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bupt.entity.FrameInfo">
+    insert into frame_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="baseId != null">
+        base_id,
+      </if>
+      <if test="cveId != null">
+        cve_id,
+      </if>
+      <if test="frameName != null">
+        frame_name,
+      </if>
+      <if test="frameType != null">
+        frame_type,
+      </if>
+      <if test="frameLanguage != null">
+        frame_language,
+      </if>
+      <if test="influence != null">
+        influence,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="baseId != null">
+        #{baseId,jdbcType=BIGINT},
+      </if>
+      <if test="cveId != null">
+        #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="frameName != null">
+        #{frameName,jdbcType=VARCHAR},
+      </if>
+      <if test="frameType != null">
+        #{frameType,jdbcType=VARCHAR},
+      </if>
+      <if test="frameLanguage != null">
+        #{frameLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="influence != null">
+        #{influence,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bupt.entity.FrameInfo">
+    update frame_info
+    <set>
+      <if test="baseId != null">
+        base_id = #{baseId,jdbcType=BIGINT},
+      </if>
+      <if test="cveId != null">
+        cve_id = #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="frameName != null">
+        frame_name = #{frameName,jdbcType=VARCHAR},
+      </if>
+      <if test="frameType != null">
+        frame_type = #{frameType,jdbcType=VARCHAR},
+      </if>
+      <if test="frameLanguage != null">
+        frame_language = #{frameLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="influence != null">
+        influence = #{influence,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bupt.entity.FrameInfo">
+    update frame_info
+    set base_id = #{baseId,jdbcType=BIGINT},
+      cve_id = #{cveId,jdbcType=VARCHAR},
+      frame_name = #{frameName,jdbcType=VARCHAR},
+      frame_type = #{frameType,jdbcType=VARCHAR},
+      frame_language = #{frameLanguage,jdbcType=VARCHAR},
+      influence = #{influence,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

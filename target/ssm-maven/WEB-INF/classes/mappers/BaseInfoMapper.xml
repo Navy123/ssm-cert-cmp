@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.dao.BaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.bupt.entity.BaseInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="cve_id" jdbcType="VARCHAR" property="cveId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="bug_type" jdbcType="CHAR" property="bugType" />
+    <result column="publish_time" jdbcType="DATE" property="publishTime" />
+    <result column="modified_time" jdbcType="DATE" property="modifiedTime" />
+    <result column="danger_level" jdbcType="CHAR" property="dangerLevel" />
+    <result column="reference" jdbcType="VARCHAR" property="reference" />
+    <result column="is_exist_patch" jdbcType="BIT" property="isExistPatch" />
+    <result column="is_exist_product_list" jdbcType="BIT" property="isExistProductList" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bupt.entity.BaseInfoWithBLOBs">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="solution_opinion" jdbcType="LONGVARCHAR" property="solutionOpinion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cve_id, gmt_create, gmt_modified, bug_type, publish_time, modified_time, danger_level, 
+    reference, is_exist_patch, is_exist_product_list
+  </sql>
+  <sql id="Blob_Column_List">
+    description, solution_opinion
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from base_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByPagination" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from base_info
+    LIMIT #{offset},#{pageSize}
+  </select>
+  <select id="countTotalSize" resultType="long">
+    select COUNT(*)
+    from base_info
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bupt.entity.BaseInfoWithBLOBs">
+    insert into base_info (id, cve_id, gmt_create, 
+      gmt_modified, bug_type, publish_time, 
+      modified_time, danger_level, reference, 
+      is_exist_patch, is_exist_product_list, description, 
+      solution_opinion)
+    values (#{id,jdbcType=BIGINT}, #{cveId,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{bugType,jdbcType=CHAR}, #{publishTime,jdbcType=DATE}, 
+      #{modifiedTime,jdbcType=DATE}, #{dangerLevel,jdbcType=CHAR}, #{reference,jdbcType=VARCHAR}, 
+      #{isExistPatch,jdbcType=BIT}, #{isExistProductList,jdbcType=BIT}, #{description,jdbcType=LONGVARCHAR}, 
+      #{solutionOpinion,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bupt.entity.BaseInfoWithBLOBs">
+    insert into base_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cveId != null">
+        cve_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="bugType != null">
+        bug_type,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="dangerLevel != null">
+        danger_level,
+      </if>
+      <if test="reference != null">
+        reference,
+      </if>
+      <if test="isExistPatch != null">
+        is_exist_patch,
+      </if>
+      <if test="isExistProductList != null">
+        is_exist_product_list,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="solutionOpinion != null">
+        solution_opinion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cveId != null">
+        #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bugType != null">
+        #{bugType,jdbcType=CHAR},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=DATE},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=DATE},
+      </if>
+      <if test="dangerLevel != null">
+        #{dangerLevel,jdbcType=CHAR},
+      </if>
+      <if test="reference != null">
+        #{reference,jdbcType=VARCHAR},
+      </if>
+      <if test="isExistPatch != null">
+        #{isExistPatch,jdbcType=BIT},
+      </if>
+      <if test="isExistProductList != null">
+        #{isExistProductList,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solutionOpinion != null">
+        #{solutionOpinion,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bupt.entity.BaseInfoWithBLOBs">
+    update base_info
+    <set>
+      <if test="cveId != null">
+        cve_id = #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bugType != null">
+        bug_type = #{bugType,jdbcType=CHAR},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=DATE},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=DATE},
+      </if>
+      <if test="dangerLevel != null">
+        danger_level = #{dangerLevel,jdbcType=CHAR},
+      </if>
+      <if test="reference != null">
+        reference = #{reference,jdbcType=VARCHAR},
+      </if>
+      <if test="isExistPatch != null">
+        is_exist_patch = #{isExistPatch,jdbcType=BIT},
+      </if>
+      <if test="isExistProductList != null">
+        is_exist_product_list = #{isExistProductList,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solutionOpinion != null">
+        solution_opinion = #{solutionOpinion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bupt.entity.BaseInfoWithBLOBs">
+    update base_info
+    set cve_id = #{cveId,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      bug_type = #{bugType,jdbcType=CHAR},
+      publish_time = #{publishTime,jdbcType=DATE},
+      modified_time = #{modifiedTime,jdbcType=DATE},
+      danger_level = #{dangerLevel,jdbcType=CHAR},
+      reference = #{reference,jdbcType=VARCHAR},
+      is_exist_patch = #{isExistPatch,jdbcType=BIT},
+      is_exist_product_list = #{isExistProductList,jdbcType=BIT},
+      description = #{description,jdbcType=LONGVARCHAR},
+      solution_opinion = #{solutionOpinion,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bupt.entity.BaseInfo">
+    update base_info
+    set cve_id = #{cveId,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      bug_type = #{bugType,jdbcType=CHAR},
+      publish_time = #{publishTime,jdbcType=DATE},
+      modified_time = #{modifiedTime,jdbcType=DATE},
+      danger_level = #{dangerLevel,jdbcType=CHAR},
+      reference = #{reference,jdbcType=VARCHAR},
+      is_exist_patch = #{isExistPatch,jdbcType=BIT},
+      is_exist_product_list = #{isExistProductList,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

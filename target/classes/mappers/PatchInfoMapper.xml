@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.dao.PatchInfoMapper">
+  <resultMap id="BaseResultMap" type="com.bupt.entity.PatchInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="base_id" jdbcType="BIGINT" property="baseId" />
+    <result column="cve_id" jdbcType="VARCHAR" property="cveId" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="reference" jdbcType="VARCHAR" property="reference" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bupt.entity.PatchInfoWithBLOBs">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="patch_code" jdbcType="LONGVARCHAR" property="patchCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, base_id, cve_id, gmt_create, gmt_modified, reference
+  </sql>
+  <sql id="Blob_Column_List">
+    description, patch_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from patch_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByBaseIDPagination" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from patch_info
+    where base_id = #{baseId,jdbcType=BIGINT}
+    LIMIT #{offset},#{pageSize}
+  </select>
+  <select id="countTotalSizeByBaseID" parameterType="java.lang.Long" resultType="long">
+    select COUNT(*)
+    from patch_info
+    where base_id = #{baseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from patch_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByBaseInfoID" parameterType="java.lang.Long">
+    delete from patch_info
+    where base_id = #{baseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bupt.entity.PatchInfoWithBLOBs">
+    insert into patch_info (id, base_id, cve_id, 
+      gmt_create, gmt_modified, reference, 
+      description, patch_code)
+    values (#{id,jdbcType=BIGINT}, #{baseId,jdbcType=BIGINT}, #{cveId,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{reference,jdbcType=VARCHAR}, 
+      #{description,jdbcType=LONGVARCHAR}, #{patchCode,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bupt.entity.PatchInfoWithBLOBs">
+    insert into patch_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="baseId != null">
+        base_id,
+      </if>
+      <if test="cveId != null">
+        cve_id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="reference != null">
+        reference,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="patchCode != null">
+        patch_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="baseId != null">
+        #{baseId,jdbcType=BIGINT},
+      </if>
+      <if test="cveId != null">
+        #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reference != null">
+        #{reference,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="patchCode != null">
+        #{patchCode,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bupt.entity.PatchInfoWithBLOBs">
+    update patch_info
+    <set>
+      <if test="baseId != null">
+        base_id = #{baseId,jdbcType=BIGINT},
+      </if>
+      <if test="cveId != null">
+        cve_id = #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reference != null">
+        reference = #{reference,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="patchCode != null">
+        patch_code = #{patchCode,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bupt.entity.PatchInfoWithBLOBs">
+    update patch_info
+    set base_id = #{baseId,jdbcType=BIGINT},
+      cve_id = #{cveId,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      reference = #{reference,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
+      patch_code = #{patchCode,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bupt.entity.PatchInfo">
+    update patch_info
+    set base_id = #{baseId,jdbcType=BIGINT},
+      cve_id = #{cveId,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      reference = #{reference,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

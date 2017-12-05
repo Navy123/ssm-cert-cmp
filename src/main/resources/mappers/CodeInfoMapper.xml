@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bupt.dao.CodeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.bupt.entity.CodeInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="base_id" jdbcType="BIGINT" property="baseId" />
+    <result column="cve_id" jdbcType="VARCHAR" property="cveId" />
+    <result column="code_position" jdbcType="VARCHAR" property="codePosition" />
+    <result column="code_section" jdbcType="VARCHAR" property="codeSection" />
+    <result column="Influence" jdbcType="VARCHAR" property="influence" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, base_id, cve_id, code_position, code_section, Influence
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from code_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByBaseInfoID" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from code_info
+    where base_id = #{baseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from code_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByBaseInfoID" parameterType="java.lang.Long">
+    delete from code_info
+    where base_id = #{baseId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bupt.entity.CodeInfo">
+    insert into code_info (id, base_id, cve_id, 
+      code_position, code_section, Influence
+      )
+    values (#{id,jdbcType=BIGINT}, #{baseId,jdbcType=BIGINT}, #{cveId,jdbcType=VARCHAR}, 
+      #{codePosition,jdbcType=VARCHAR}, #{codeSection,jdbcType=VARCHAR}, #{influence,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bupt.entity.CodeInfo">
+    insert into code_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="baseId != null">
+        base_id,
+      </if>
+      <if test="cveId != null">
+        cve_id,
+      </if>
+      <if test="codePosition != null">
+        code_position,
+      </if>
+      <if test="codeSection != null">
+        code_section,
+      </if>
+      <if test="influence != null">
+        Influence,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="baseId != null">
+        #{baseId,jdbcType=BIGINT},
+      </if>
+      <if test="cveId != null">
+        #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="codePosition != null">
+        #{codePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="codeSection != null">
+        #{codeSection,jdbcType=VARCHAR},
+      </if>
+      <if test="influence != null">
+        #{influence,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bupt.entity.CodeInfo">
+    update code_info
+    <set>
+      <if test="baseId != null">
+        base_id = #{baseId,jdbcType=BIGINT},
+      </if>
+      <if test="cveId != null">
+        cve_id = #{cveId,jdbcType=VARCHAR},
+      </if>
+      <if test="codePosition != null">
+        code_position = #{codePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="codeSection != null">
+        code_section = #{codeSection,jdbcType=VARCHAR},
+      </if>
+      <if test="influence != null">
+        Influence = #{influence,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bupt.entity.CodeInfo">
+    update code_info
+    set base_id = #{baseId,jdbcType=BIGINT},
+      cve_id = #{cveId,jdbcType=VARCHAR},
+      code_position = #{codePosition,jdbcType=VARCHAR},
+      code_section = #{codeSection,jdbcType=VARCHAR},
+      Influence = #{influence,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

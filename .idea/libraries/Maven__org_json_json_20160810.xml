@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.json:json:20160810">
+    <CLASSES>
+      <root url="jar://G:/software/apache-maven-3.5.0/repo/org/json/json/20160810/json-20160810.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://G:/software/apache-maven-3.5.0/repo/org/json/json/20160810/json-20160810-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://G:/software/apache-maven-3.5.0/repo/org/json/json/20160810/json-20160810-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
