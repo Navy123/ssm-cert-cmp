@@ -91,15 +91,15 @@ public class AdminController {
     public FlawItem flawItem(@PathVariable("id") long id){
         FlawItem flawItem = new FlawItem();
         BaseInfoWithBLOBs baseInfo = baseInfoService.selectByPrimaryKey(id);
-        CodeInfo codeInfo = codeInfoService.selectByBaseInfoID(id);
-        FrameInfo frameInfo = frameInfoService.selectByBaseInfoID(id);
-        LibInfo libInfo = libInfoService.selectByBaseInfoID(id);
-        AffectedProductWithBLOBs affectedProduct = affectedProductService.selectByBaseInfoID(id);
+        //CodeInfo codeInfo = codeInfoService.selectByBaseInfoID(id);
+        //FrameInfo frameInfo = frameInfoService.selectByBaseInfoID(id);
+        //LibInfo libInfo = libInfoService.selectByBaseInfoID(id);
+        //AffectedProductWithBLOBs affectedProduct = affectedProductService.selectByBaseInfoID(id);
         flawItem.setBaseInfo(baseInfo);
-        flawItem.setCodeInfo(codeInfo);
-        flawItem.setFrameInfo(frameInfo);
-        flawItem.setLibInfo(libInfo);
-        flawItem.setAffectedProduct(affectedProduct);
+        //flawItem.setCodeInfo(codeInfo);
+        //flawItem.setFrameInfo(frameInfo);
+        //flawItem.setLibInfo(libInfo);
+        //flawItem.setAffectedProduct(affectedProduct);
         return flawItem;
     }
 

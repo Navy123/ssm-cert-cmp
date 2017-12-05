@@ -16,25 +16,25 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from frame_info
+    from frame
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectByBaseInfoID" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from frame_info
+    from frame
     where base_id = #{baseId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from frame_info
+    delete from frame
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByBaseInfoID" parameterType="java.lang.Long">
-    delete from frame_info
+    delete from frame
     where base_id = #{baseId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.bupt.entity.FrameInfo">
-    insert into frame_info (id, base_id, cve_id, 
+    insert into frame (id, base_id, cve_id,
       frame_name, frame_type, frame_language, 
       influence)
     values (#{id,jdbcType=BIGINT}, #{baseId,jdbcType=BIGINT}, #{cveId,jdbcType=VARCHAR}, 
@@ -42,7 +42,7 @@
       #{influence,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bupt.entity.FrameInfo">
-    insert into frame_info
+    insert into frame
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -91,7 +91,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.bupt.entity.FrameInfo">
-    update frame_info
+    update frame
     <set>
       <if test="baseId != null">
         base_id = #{baseId,jdbcType=BIGINT},
@@ -115,7 +115,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bupt.entity.FrameInfo">
-    update frame_info
+    update frame
     set base_id = #{baseId,jdbcType=BIGINT},
       cve_id = #{cveId,jdbcType=VARCHAR},
       frame_name = #{frameName,jdbcType=VARCHAR},

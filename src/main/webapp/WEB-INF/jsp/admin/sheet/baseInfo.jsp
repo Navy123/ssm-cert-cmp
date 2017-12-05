@@ -43,15 +43,8 @@
                 },
                 {field:'bugType',title:'漏洞类型',
                     formatter: function(value, row, index){
-                        var tmp = "";
-                        if(value.indexOf('lib'))
-                            tmp += "lib库漏洞 ";
-                        if(value.indexOf('code'))
-                            tmp += "源码漏洞 ";
-                        if(value.indexOf('frame'))
-                            tmp += "框架漏洞 ";
                             return value;
-                    },width:60
+                    },width:30
                 },
                 {field:'publishTime',title:'漏洞发布时间',
                     formatter:function(value,row,index){

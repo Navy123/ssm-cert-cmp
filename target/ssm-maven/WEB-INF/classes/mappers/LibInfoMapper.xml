@@ -24,7 +24,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from lib_info
+    from lib
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectByBaseInfoID" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
@@ -32,19 +32,19 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from lib_info
+    from lib
     where base_id = #{baseId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from lib_info
+    delete from lib
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByBaseInfoID" parameterType="java.lang.Long">
-    delete from lib_info
+    delete from lib
     where base_id = #{baseId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.bupt.entity.LibInfo">
-    insert into lib_info (id, base_id, cve_id, 
+    insert into lib (id, base_id, cve_id,
       gmt_create, gmt_modified, lib_name, 
       lib_version, description)
     values (#{id,jdbcType=BIGINT}, #{baseId,jdbcType=BIGINT}, #{cveId,jdbcType=VARCHAR}, 
@@ -52,7 +52,7 @@
       #{libVersion,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bupt.entity.LibInfo">
-    insert into lib_info
+    insert into lib
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -107,7 +107,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.bupt.entity.LibInfo">
-    update lib_info
+    update lib
     <set>
       <if test="baseId != null">
         base_id = #{baseId,jdbcType=BIGINT},
@@ -134,7 +134,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bupt.entity.LibInfo">
-    update lib_info
+    update lib
     set base_id = #{baseId,jdbcType=BIGINT},
       cve_id = #{cveId,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -145,7 +145,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bupt.entity.LibInfo">
-    update lib_info
+    update lib
     set base_id = #{baseId,jdbcType=BIGINT},
       cve_id = #{cveId,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
